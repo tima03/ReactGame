@@ -1,9 +1,10 @@
 export default class Bullet {
-    constructor(x, y, radius, speed, direction, color = "black") {
+    constructor(x, y, width, height, direction, color) {
         this.x = x;
         this.y = y;
-        this.radius = radius;
-        this.speed = speed;
+        this.width = width;
+        this.height = height;
+        this.speed = 5;
         this.direction = direction;
         this.color = color;
     }
@@ -17,14 +18,15 @@ export default class Bullet {
     }
 
     collidesWith(player) {
-        const distance = Math.hypot(player.x - this.x, player.y - this.y);
-        return distance < player.radius + this.radius;
+        const dx = this.x - player.x;
+        const dy = this.y - player.y;
+        const distance = Math.hypot(dx, dy);
+
+        return false;
     }
 
     draw(ctx) {
         ctx.fillStyle = this.color;
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fill();
+        ctx.fillRect(this.x, this.y, this.width, this.height);
     }
 }
